@@ -134,7 +134,7 @@
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(0, 37);
+            txtSearch.Location = new Point(6, 38);
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = "Insert search terms here";
             txtSearch.Size = new Size(287, 27);
@@ -381,6 +381,7 @@
             // 
             // txtEmail
             // 
+            txtEmail.BackColor = SystemColors.Window;
             txtEmail.Enabled = false;
             txtEmail.Location = new Point(8, 146);
             txtEmail.Name = "txtEmail";

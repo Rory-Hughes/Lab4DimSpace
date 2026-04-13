@@ -396,7 +396,7 @@ namespace Lab4DimSpace
                     query = query.Where(d => d.Name.Contains(search) || d.Description.Contains(search));
 
                 dgvAssignments.DataSource = query.ToList();
-
+                btnSubmitAssignment.Visible = true;
                 grpCreateAssignment.Visible = false;
             }
             else // Instructor sees all assignments for the course
@@ -416,6 +416,7 @@ namespace Lab4DimSpace
 
                 dgvAssignments.DataSource = query.ToList();
 
+                grpCreateAssignment.Visible = true;
                 btnSubmitAssignment.Visible = false;
             }
         }
