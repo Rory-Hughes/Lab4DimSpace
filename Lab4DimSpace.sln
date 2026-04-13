@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab4DimSpace", "Lab4DimSpace\Lab4DimSpace.csproj", "{43156459-D707-477E-971C-C01C69D583BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDimSpace", "TestDimSpace\TestDimSpace.csproj", "{2A72D8D4-4DA0-423F-84F1-94FFED2F6503}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{43156459-D707-477E-971C-C01C69D583BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43156459-D707-477E-971C-C01C69D583BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43156459-D707-477E-971C-C01C69D583BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A72D8D4-4DA0-423F-84F1-94FFED2F6503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A72D8D4-4DA0-423F-84F1-94FFED2F6503}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A72D8D4-4DA0-423F-84F1-94FFED2F6503}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A72D8D4-4DA0-423F-84F1-94FFED2F6503}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
