@@ -72,37 +72,30 @@ namespace Lab4DimSpace
 
             _loggedInUser = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
 
-            if (_loggedInUser != null)
-            {
-                // Successful login
-                MessageBox.Show($"Welcome, {_loggedInUser.Username}!", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                SetupFormForUserRole();
-            }
-            else
+            if (_loggedInUser == null)
             {
                 // Failed login
                 MessageBox.Show("Invalid username or password. Please try again.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
+
             // update login info display
-            lblUserName.Text = _loggedInUser != null ? $"Logged in as: {_loggedInUser.Username} ({_loggedInUser.UserRole.Name})" : "Not logged in";
-            grpLoginInfo.Visible = _loggedInUser != null;
-            grpSearch.Visible = _loggedInUser != null;
-            grpActiveCourse.Visible = _loggedInUser != null;
+            lblUserName.Text = _loggedInUser.Username;
+            grpLoginInfo.Visible = true;
+            grpSearch.Visible = true;
+            grpActiveCourse.Visible = true;
 
             // Remove login tab and show appropriate tabs based on role
             tabNavigation.TabPages.Remove(tabLogin);
 
-            
+
             if (_loggedInUser.UserRoleId == 1) // Student role
             {
                 tabNavigation.TabPages.Add(tabAssignments);
                 LoadAssignments();
-            } else if (_loggedInUser.UserRoleId == 2) // Instructor role
-            {
-                tabNavigation.TabPages.Add(tabAssignments);
-                LoadAssignments();
-            } else if (_loggedInUser.UserRoleId == 3) // Admin role
+            }
+            else if (_loggedInUser.UserRoleId == 2) // Instructor role
             {
                 tabNavigation.TabPages.Add(tabAssignments);
                 tabNavigation.TabPages.Add(tabUsers);
@@ -110,6 +103,12 @@ namespace Lab4DimSpace
                 LoadUsers();
 
             }
+            else if (_loggedInUser.UserRoleId == 3) // Admin role
+            {
+                tabNavigation.TabPages.Add(tabAssignments);
+                LoadAssignments();
+            }
+        }
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             //Code to handle user logout
@@ -130,11 +129,21 @@ namespace Lab4DimSpace
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             //Search Code
+            if (tabNavigation.SelectedTab == tabAssignments)
+                LoadAssignments(txtSearch.Text);
+            else if (tabNavigation.SelectedTab == tabUsers)
+                LoadUsers(txtSearch.Text);
         }
 
         private void cboActiveCourse_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Active Course changed
+            if (_loggedInUser == null) return;
+
+            if (tabNavigation.TabPages.Contains(tabAssignments))
+                LoadAssignments();
+            if (tabNavigation.TabPages.Contains(tabUsers))
+                LoadUsers();
         }
 
         private void btnCreateUser_Click(object sender, EventArgs e)
@@ -147,55 +156,71 @@ namespace Lab4DimSpace
             //Code to assign displayed user to active course **NOTE** only an Admin should be able to do this
         }
 
+
         private void LoadAssignments(string search = "")
         {
-            //Code to load assignments for the active course
             int courseId = (int)cboActiveCourse.SelectedValue;
 
-            if (_loggedInUser.UserRoleId == 1) // Student
+            if (_loggedInUser.UserRoleId == 1) // Student sees only their own
             {
-                var assignments = _context.DropBoxItems
-                    .Where(d => d.DropBox.CourseId == courseId && d.StudentId == _loggedInUser.UserId && (d.DropBox.Name.Contains(search) || d.Description.Contains(search)))
+                var query = _context.DropBoxItems
+                    .Where(d => d.DropBox.CourseId == courseId && d.StudentId == _loggedInUser.UserId)
                     .Select(d => new
                     {
-                        d.DropBoxItemId,
+                        d.DropBox.DropBoxId,
                         d.DropBox.Name,
-                        d.Description,
+                        d.DropBox.Description,
+                        d.DropBox.DueDate,
                         Status = d.Status.StatusName
-                    })
-                    .ToList();
-                dgvAssignments.DataSource = assignments;
+                    });
+
+                if (!string.IsNullOrEmpty(search))
+                    query = query.Where(d => d.Name.Contains(search) || d.Description.Contains(search));
+
+                dgvAssignments.DataSource = query.ToList();
             }
-            else if (_loggedInUser.UserRoleId == 2) // Instructor
+            else // Instructor sees all assignments for the course
             {
-                var assignments = _context.DropBoxItems
-                    .Where(d => d.DropBox.CourseId == courseId && (d.DropBox.Name.Contains(search) || d.Description.Contains(search)))
+                var query = _context.DropBoxes
+                    .Where(d => d.CourseId == courseId)
                     .Select(d => new
                     {
-                        d.DropBoxItemId,
-                        d.DropBox.Name,
+                        d.DropBoxId,
+                        d.Name,
                         d.Description,
-                        Student = d.Student.Username,
-                        Status = d.Status.StatusName
-                    })
-                    .ToList();
-                dgvAssignments.DataSource = assignments;
-            }
-             else if (_loggedInUser.UserRoleId == 3) // Admin
-             {
-                 var assignments = _context.DropBoxItems
-                     .Where(d => d.DropBox.CourseId == courseId && (d.DropBox.Name.Contains(search) || d.Description.Contains(search)))
-                     .Select(d => new
-                     {
-                         d.DropBoxItemId,
-                         d.DropBox.Name,
-                         d.Description,
-                         Student = d.Student.Username,
-                         Status = d.Status.StatusName
-                     })
-                     .ToList();
-                 dgvAssignments.DataSource = assignments;
+                        d.DueDate
+                    });
+
+                if (!string.IsNullOrEmpty(search))
+                    query = query.Where(d => d.Name.Contains(search) || d.Description.Contains(search));
+
+                dgvAssignments.DataSource = query.ToList();
             }
         }
+
+
+
+
+        private void LoadUsers(string search = "")
+        {
+            int courseId = (int)cboActiveCourse.SelectedValue;
+
+            var query = _context.CourseAccesses
+                .Where(ca => ca.CourseId == courseId)
+                .Select(ca => new
+                {
+                    ca.User.UserId,
+                    ca.User.Username,
+                    ca.User.Email
+                });
+
+            if (!string.IsNullOrEmpty(search))
+                query = query.Where(u => u.Username.Contains(search));
+
+            dgvUsers.DataSource = query.ToList();
+        }
+
     }
 }
+
+
