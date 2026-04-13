@@ -48,15 +48,16 @@
             btnCreateAssignment = new Button();
             dgvAssignments = new DataGridView();
             tabUsers = new TabPage();
+            grpUserManagement = new GroupBox();
+            label3 = new Label();
             btnAssignUser = new Button();
+            txtUsers = new TextBox();
+            btnCreateUser = new Button();
             groupBox1 = new GroupBox();
             radStudent = new RadioButton();
             radInstructor = new RadioButton();
             label5 = new Label();
-            label3 = new Label();
             txtEmail = new TextBox();
-            txtUsers = new TextBox();
-            btnCreateUser = new Button();
             dgvUsers = new DataGridView();
             UserId = new DataGridViewTextBoxColumn();
             Username = new DataGridViewTextBoxColumn();
@@ -68,7 +69,6 @@
             label1 = new Label();
             label2 = new Label();
             tabNavigation = new TabControl();
-            grpUserManagement = new GroupBox();
             grpLoginInfo.SuspendLayout();
             grpSearch.SuspendLayout();
             grpActiveCourse.SuspendLayout();
@@ -76,11 +76,11 @@
             grpCreateAssignment.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAssignments).BeginInit();
             tabUsers.SuspendLayout();
+            grpUserManagement.SuspendLayout();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             tabLogin.SuspendLayout();
             tabNavigation.SuspendLayout();
-            grpUserManagement.SuspendLayout();
             SuspendLayout();
             // 
             // grpLoginInfo
@@ -285,6 +285,31 @@
             tabUsers.Text = "Users";
             tabUsers.UseVisualStyleBackColor = true;
             // 
+            // grpUserManagement
+            // 
+            grpUserManagement.Controls.Add(label3);
+            grpUserManagement.Controls.Add(btnAssignUser);
+            grpUserManagement.Controls.Add(txtUsers);
+            grpUserManagement.Controls.Add(btnCreateUser);
+            grpUserManagement.Controls.Add(groupBox1);
+            grpUserManagement.Controls.Add(label5);
+            grpUserManagement.Controls.Add(txtEmail);
+            grpUserManagement.Location = new Point(949, 23);
+            grpUserManagement.Name = "grpUserManagement";
+            grpUserManagement.Size = new Size(250, 422);
+            grpUserManagement.TabIndex = 11;
+            grpUserManagement.TabStop = false;
+            grpUserManagement.Text = "User Management";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(8, 45);
+            label3.Name = "label3";
+            label3.Size = new Size(78, 20);
+            label3.TabIndex = 7;
+            label3.Text = "Username:";
+            // 
             // btnAssignUser
             // 
             btnAssignUser.Location = new Point(8, 370);
@@ -294,6 +319,23 @@
             btnAssignUser.Text = "Assign User to Active Course";
             btnAssignUser.UseVisualStyleBackColor = true;
             btnAssignUser.Click += btnAssignUser_Click;
+            // 
+            // txtUsers
+            // 
+            txtUsers.Location = new Point(8, 68);
+            txtUsers.Name = "txtUsers";
+            txtUsers.Size = new Size(220, 27);
+            txtUsers.TabIndex = 3;
+            // 
+            // btnCreateUser
+            // 
+            btnCreateUser.Location = new Point(8, 317);
+            btnCreateUser.Name = "btnCreateUser";
+            btnCreateUser.Size = new Size(220, 37);
+            btnCreateUser.TabIndex = 2;
+            btnCreateUser.Text = "Create User";
+            btnCreateUser.UseVisualStyleBackColor = true;
+            btnCreateUser.Click += btnCreateUser_Click;
             // 
             // groupBox1
             // 
@@ -337,15 +379,6 @@
             label5.TabIndex = 8;
             label5.Text = "Email:";
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(8, 45);
-            label3.Name = "label3";
-            label3.Size = new Size(78, 20);
-            label3.TabIndex = 7;
-            label3.Text = "Username:";
-            // 
             // txtEmail
             // 
             txtEmail.Enabled = false;
@@ -354,23 +387,6 @@
             txtEmail.ReadOnly = true;
             txtEmail.Size = new Size(220, 27);
             txtEmail.TabIndex = 4;
-            // 
-            // txtUsers
-            // 
-            txtUsers.Location = new Point(8, 68);
-            txtUsers.Name = "txtUsers";
-            txtUsers.Size = new Size(220, 27);
-            txtUsers.TabIndex = 3;
-            // 
-            // btnCreateUser
-            // 
-            btnCreateUser.Location = new Point(8, 317);
-            btnCreateUser.Name = "btnCreateUser";
-            btnCreateUser.Size = new Size(220, 37);
-            btnCreateUser.TabIndex = 2;
-            btnCreateUser.Text = "Create User";
-            btnCreateUser.UseVisualStyleBackColor = true;
-            btnCreateUser.Click += btnCreateUser_Click;
             // 
             // dgvUsers
             // 
@@ -386,6 +402,7 @@
             dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvUsers.Size = new Size(937, 505);
             dgvUsers.TabIndex = 1;
+            dgvUsers.CellClick += dgvUsers_CellClick;
             // 
             // UserId
             // 
@@ -484,22 +501,6 @@
             tabNavigation.Size = new Size(1211, 550);
             tabNavigation.TabIndex = 16;
             // 
-            // grpUserManagement
-            // 
-            grpUserManagement.Controls.Add(label3);
-            grpUserManagement.Controls.Add(btnAssignUser);
-            grpUserManagement.Controls.Add(txtUsers);
-            grpUserManagement.Controls.Add(btnCreateUser);
-            grpUserManagement.Controls.Add(groupBox1);
-            grpUserManagement.Controls.Add(label5);
-            grpUserManagement.Controls.Add(txtEmail);
-            grpUserManagement.Location = new Point(949, 23);
-            grpUserManagement.Name = "grpUserManagement";
-            grpUserManagement.Size = new Size(250, 422);
-            grpUserManagement.TabIndex = 11;
-            grpUserManagement.TabStop = false;
-            grpUserManagement.Text = "User Management";
-            // 
             // frmDimSpace
             // 
             AcceptButton = btnLogin;
@@ -524,14 +525,14 @@
             grpCreateAssignment.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAssignments).EndInit();
             tabUsers.ResumeLayout(false);
+            grpUserManagement.ResumeLayout(false);
+            grpUserManagement.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
             tabLogin.ResumeLayout(false);
             tabLogin.PerformLayout();
             tabNavigation.ResumeLayout(false);
-            grpUserManagement.ResumeLayout(false);
-            grpUserManagement.PerformLayout();
             ResumeLayout(false);
         }
 
