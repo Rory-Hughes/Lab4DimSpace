@@ -68,6 +68,7 @@
             label1 = new Label();
             label2 = new Label();
             tabNavigation = new TabControl();
+            grpUserManagement = new GroupBox();
             grpLoginInfo.SuspendLayout();
             grpSearch.SuspendLayout();
             grpActiveCourse.SuspendLayout();
@@ -79,6 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvUsers).BeginInit();
             tabLogin.SuspendLayout();
             tabNavigation.SuspendLayout();
+            grpUserManagement.SuspendLayout();
             SuspendLayout();
             // 
             // grpLoginInfo
@@ -274,13 +276,7 @@
             // 
             // tabUsers
             // 
-            tabUsers.Controls.Add(btnAssignUser);
-            tabUsers.Controls.Add(groupBox1);
-            tabUsers.Controls.Add(label5);
-            tabUsers.Controls.Add(label3);
-            tabUsers.Controls.Add(txtEmail);
-            tabUsers.Controls.Add(txtUsers);
-            tabUsers.Controls.Add(btnCreateUser);
+            tabUsers.Controls.Add(grpUserManagement);
             tabUsers.Controls.Add(dgvUsers);
             tabUsers.Location = new Point(4, 29);
             tabUsers.Name = "tabUsers";
@@ -291,7 +287,7 @@
             // 
             // btnAssignUser
             // 
-            btnAssignUser.Location = new Point(967, 306);
+            btnAssignUser.Location = new Point(8, 370);
             btnAssignUser.Name = "btnAssignUser";
             btnAssignUser.Size = new Size(220, 37);
             btnAssignUser.TabIndex = 10;
@@ -303,9 +299,9 @@
             // 
             groupBox1.Controls.Add(radStudent);
             groupBox1.Controls.Add(radInstructor);
-            groupBox1.Location = new Point(967, 135);
+            groupBox1.Location = new Point(8, 200);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(210, 96);
+            groupBox1.Size = new Size(220, 96);
             groupBox1.TabIndex = 9;
             groupBox1.TabStop = false;
             groupBox1.Text = "Role:";
@@ -335,7 +331,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(967, 79);
+            label5.Location = new Point(8, 123);
             label5.Name = "label5";
             label5.Size = new Size(49, 20);
             label5.TabIndex = 8;
@@ -344,7 +340,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(967, 24);
+            label3.Location = new Point(8, 45);
             label3.Name = "label3";
             label3.Size = new Size(78, 20);
             label3.TabIndex = 7;
@@ -353,7 +349,7 @@
             // txtEmail
             // 
             txtEmail.Enabled = false;
-            txtEmail.Location = new Point(967, 102);
+            txtEmail.Location = new Point(8, 146);
             txtEmail.Name = "txtEmail";
             txtEmail.ReadOnly = true;
             txtEmail.Size = new Size(220, 27);
@@ -361,14 +357,14 @@
             // 
             // txtUsers
             // 
-            txtUsers.Location = new Point(967, 47);
+            txtUsers.Location = new Point(8, 68);
             txtUsers.Name = "txtUsers";
             txtUsers.Size = new Size(220, 27);
             txtUsers.TabIndex = 3;
             // 
             // btnCreateUser
             // 
-            btnCreateUser.Location = new Point(967, 250);
+            btnCreateUser.Location = new Point(8, 317);
             btnCreateUser.Name = "btnCreateUser";
             btnCreateUser.Size = new Size(220, 37);
             btnCreateUser.TabIndex = 2;
@@ -488,6 +484,22 @@
             tabNavigation.Size = new Size(1211, 550);
             tabNavigation.TabIndex = 16;
             // 
+            // grpUserManagement
+            // 
+            grpUserManagement.Controls.Add(label3);
+            grpUserManagement.Controls.Add(btnAssignUser);
+            grpUserManagement.Controls.Add(txtUsers);
+            grpUserManagement.Controls.Add(btnCreateUser);
+            grpUserManagement.Controls.Add(groupBox1);
+            grpUserManagement.Controls.Add(label5);
+            grpUserManagement.Controls.Add(txtEmail);
+            grpUserManagement.Location = new Point(949, 23);
+            grpUserManagement.Name = "grpUserManagement";
+            grpUserManagement.Size = new Size(250, 422);
+            grpUserManagement.TabIndex = 11;
+            grpUserManagement.TabStop = false;
+            grpUserManagement.Text = "User Management";
+            // 
             // frmDimSpace
             // 
             AcceptButton = btnLogin;
@@ -512,13 +524,14 @@
             grpCreateAssignment.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAssignments).EndInit();
             tabUsers.ResumeLayout(false);
-            tabUsers.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUsers).EndInit();
             tabLogin.ResumeLayout(false);
             tabLogin.PerformLayout();
             tabNavigation.ResumeLayout(false);
+            grpUserManagement.ResumeLayout(false);
+            grpUserManagement.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -569,5 +582,6 @@
         private Button btnCreateUser;
         private Button btnAssignUser;
         private GroupBox groupBox1;
+        private GroupBox grpUserManagement;
     }
 }

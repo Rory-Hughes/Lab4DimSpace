@@ -105,8 +105,8 @@ namespace Lab4DimSpace
             }
             else if (_loggedInUser.UserRoleId == 3) // Admin role
             {
-                tabNavigation.TabPages.Add(tabAssignments);
-                LoadAssignments();
+                tabNavigation.TabPages.Add(tabUsers);
+                LoadUsers();
             }
         }
         private void btnLogOut_Click(object sender, EventArgs e)
@@ -178,6 +178,8 @@ namespace Lab4DimSpace
                     query = query.Where(d => d.Name.Contains(search) || d.Description.Contains(search));
 
                 dgvAssignments.DataSource = query.ToList();
+
+                grpCreateAssignment.Visible = false;
             }
             else // Instructor sees all assignments for the course
             {
@@ -195,6 +197,8 @@ namespace Lab4DimSpace
                     query = query.Where(d => d.Name.Contains(search) || d.Description.Contains(search));
 
                 dgvAssignments.DataSource = query.ToList();
+
+                btnSubmitAssignment.Visible = false;
             }
         }
 
@@ -203,6 +207,7 @@ namespace Lab4DimSpace
 
         private void LoadUsers(string search = "")
         {
+            
             int courseId = (int)cboActiveCourse.SelectedValue;
 
             var query = _context.CourseAccesses
@@ -218,6 +223,8 @@ namespace Lab4DimSpace
                 query = query.Where(u => u.Username.Contains(search));
 
             dgvUsers.DataSource = query.ToList();
+
+            if (_loggedInUser.UserRoleId == 2) grpUserManagement.Visible = false;
         }
 
     }
