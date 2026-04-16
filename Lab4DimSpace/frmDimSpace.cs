@@ -98,8 +98,7 @@ namespace Lab4DimSpace
             try
             {
                 // Attempt to find a matching user record in the database
-                _loggedInUser = _context.Users
-                    .FirstOrDefault(u => u.Username == username && u.Password == password);
+                _loggedInUser = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
 
                 // No match found — notify the user and abort
                 if (_loggedInUser == null)
@@ -154,7 +153,7 @@ namespace Lab4DimSpace
         // currently enrolled in that course. Restricted to Instructors only.
         private void btnCreateAssignment_Click(object sender, EventArgs e)
         {
-            // Role guard — only instructors should reach this logic
+            // only instructors should reach this logic
             if (_loggedInUser.UserRoleId != 2) return;
 
             // Validate all input fields before touching the database
@@ -252,7 +251,7 @@ namespace Lab4DimSpace
                 var item = _context.DropBoxItems
                     .FirstOrDefault(d => d.DropBoxId == dropBoxId && d.StudentId == _loggedInUser.UserId);
 
-                // Guard against a missing record (shouldn't happen, but handled defensively)
+                // Guard against a missing record (shouldn't happen, but just incase)
                 if (item == null)
                 {
                     MessageBox.Show("Assignment record not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -293,7 +292,7 @@ namespace Lab4DimSpace
         }
 
         // Fires when the user selects a different course from the combo box.
-        // Reloads the DataGridView(s) to show records for the newly selected course.
+        // Reloads the DataGridView to show records for the newly selected course.
         // Guard against firing before login (when _loggedInUser is null).
         private void cboActiveCourse_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -313,7 +312,7 @@ namespace Lab4DimSpace
         // Restricted to Administrators only.
         private void btnCreateUser_Click(object sender, EventArgs e)
         {
-            // Role guard — only admins should reach this logic
+            // only admins should reach this logic
             if (_loggedInUser.UserRoleId != 3) return;
 
             // Validate that a username has been entered
@@ -390,7 +389,7 @@ namespace Lab4DimSpace
         // Restricted to Administrators only.
         private void btnAssignUser_Click(object sender, EventArgs e)
         {
-            // Role guard — only admins should reach this logic
+            // only admins should reach this logic
             if (_loggedInUser.UserRoleId != 3) return;
 
             // txtUsers is populated by clicking a row in dgvUsers — validate it's set
